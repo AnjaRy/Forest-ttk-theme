@@ -18,6 +18,25 @@ namespace eval ttk::theme::forest-dark {
         -selectbg       "#217346"
     }
 
+    proc apply_theme {} {
+            ttk::style theme use forest-dark
+            tk_setPalette background "#313131" foreground "#eeeeee" \
+              activeBackground "#217346" \
+              selectBackground "#217346" \
+              selectForeground "#ffffff" \
+              disabledBackground "#ffffff" \
+              disabledForeground "#595959" \
+              highlightColor "#217346"
+    }
+
+    proc switch_theme {theme_name} {
+    if {$theme_name eq "dark"} {
+        ttk::theme::forest-dark::apply_theme
+    } elseif {$theme_name eq "light"} {
+        ttk::theme::forest-light::apply_theme
+    }
+    }
+
     proc LoadImages {imgdir} {
         variable I
         foreach file [glob -directory $imgdir *.png] {
@@ -225,11 +244,12 @@ namespace eval ttk::theme::forest-dark {
 
         # Button
         ttk::style configure TButton -padding {8 4 8 4} -width -10 -anchor center
+        ttk::style map TButton -foreground [list disabled #bbbbbb]
 
         ttk::style element create Button.button image \
             [list $I(rect-basic) \
-                {selected disabled} $I(rect-basic) \
-                disabled $I(rect-basic) \
+                {selected disabled} $I(rect-disabled) \
+                disabled $I(rect-disabled) \
                 selected $I(rect-basic) \
                 pressed $I(rect-basic) \
                 active $I(rect-hover) \

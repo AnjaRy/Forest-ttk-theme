@@ -18,6 +18,19 @@ namespace eval ttk::theme::forest-light {
         -selectbg       "#217346"
     }
 
+    proc apply_theme {} {
+        ttk::style theme use forest-light
+        tk_setPalette background "#ffffff" foreground "#000000"
+    }
+
+    proc switch_theme {theme_name} {
+    if {$theme_name eq "dark"} {
+        ttk::theme::forest-dark::apply_theme
+    } elseif {$theme_name eq "light"} {
+        ttk::theme::forest-light::apply_theme
+    }
+    }
+
     proc LoadImages {imgdir} {
         variable I
         foreach file [glob -directory $imgdir *.png] {
